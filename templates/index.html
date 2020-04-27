@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block body %}
+<br>	
+<h1 style="text-align: center;background-color: yellow;margin-left: 100px;margin-right: 100px;"><b>Task Manager</b></h1>
+<div class="content" style="text-align: center;background-color:#ff6666;margin-left: 100px;margin-top: 80px;margin-right: 100px;">
+<br>
+	<br>
+	{% if tasks|length <1 %}
+	
+	<h3>YOUR LIST IS EMPTY</h3>
+	{% else %}
+	<table border="5px" cellpadding="20px" align="center" class="table table-striped w-auto">
+		<tr>
+			<th></th>
+			<th>SrNo</th>
+			<th>Task</th>
+			<th>Added</th>
+			<th>Actions</th>
+		</tr>
+		{% for task in tasks %}
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>{{task.id}}</td>
+			<td>{{ task.content }}</td>
+			<td>{{ task.date_created.date() }}</td>
+			<td >
+				<button type="button" class="btn btn-primary" ><a style="color: black;" href="/delete/{{task.id}}">Delete</a></button>
+				 &nbsp<button type="button" class="btn btn-primary" ><a style="color: black;" href="/update/{{task.id}}">Update</a></button>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+	<br>
+	<br>
+	<form action="/" method="POST">
+		<input type="text" name="content" id="content">
+		<input type="submit" name="Add Task">
+	</form>
+	<br>
+	<br>
+</div>
+{% endblock %}
